@@ -1,0 +1,110 @@
+#!/usr/bin/python3
+
+import sys
+import math
+import random
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Vérification bon nombre d'arguments
+if len(sys.argv) != 8:
+    print("Usage: ./101pong x0 y0 z0 x1 y1 z1 n", file=sys.stderr)
+    sys.exit(84)
+
+# Fonction pour initialiser le vecteur vitesse
+def init_vec(A, B):
+    vec = [0] * len(A)
+    for i in range(len(vec)):
+        vec[i] = B[i] - A[i]
+    return vec
+
+# Fonction pour formater l'affichage d'un vecteur
+def format_vec(tab):
+    strvec = "("
+    for i in range(len(tab)):
+        strvec += "{:.2f}".format(tab[i])
+        if i < len(tab) - 1:
+            strvec += ", "
+    strvec += ")"
+    return strvec
+
+# Fonction pour calculer la norme d'un vecteur
+def norme(vec):
+    return math.sqrt(sum(coord ** 2 for coord in vec))
+
+# Fonction pour calculer l'angle d'incidence
+def calcul_angle_incidence(vec):
+    norme_v = norme(vec)
+    if norme_v == 0:
+        return None
+    # Valeur absolue de z
+    angle_rad = math.asin(abs(vec[2]) / norme_v)
+    return math.degrees(angle_rad)
+
+# Variable globale pour l'accélération
+acceleration = [random.uniform(-0.1, 0.1) for _ in range(3)]
+
+# Fonction pour calculer la position de la balle après n secondes
+def calcul_position_apres_temps(vec, A, n):
+    nouvelle_position = [0, 0, 0]
+    for i in range(3):
+        nouvelle_position[i] = A[i] + vec[i] * n + 0.5 * acceleration[i] * n ** 2
+    return nouvelle_position
+
+# Fonction pour générer les points de la trajectoire
+def generate_trajectory_points(A, vec, time_intervals):
+    points = [A]
+    for n in range(1, time_intervals + 1):
+        points.append(calcul_position_apres_temps(vec, A, n))
+    return points
+
+# Récupération des coordonnées de A et B et le temps n
+# Vérification si les arguments peuvent être convertis correctement
+try:
+    a = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])]
+    b = [float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])]
+    n = int(sys.argv[7])
+except ValueError:
+    print("Invalid arguments. Arguments must be numbers.", file=sys.stderr)
+    sys.exit(84)
+
+# Vérification si le temps est positif
+if n < 0:
+    print("Time shift must be a positive integer.", file=sys.stderr)
+    sys.exit(84)
+
+# Calcul du vecteur vitesse
+tab_vec = init_vec(a, b)
+strvec = format_vec(tab_vec)
+print("The velocity vector of the ball is:\n" + strvec)
+
+# Calcul de la nouvelle position de la balle après n secondes
+nouvelle_position = calcul_position_apres_temps(tab_vec, b, n)
+str_nouvelle_position = format_vec(nouvelle_position)
+print("At time t + " + str(n) + ", ball coordinates will be:")
+print(str_nouvelle_position)
+
+# Vérif si la balle atteindra le plan de la batte
+if (b[2] >= 0 and nouvelle_position[2] <= 0) or (b[2] <= 0 and nouvelle_position[2] >= 0):
+    # Calcul de l'angle d'incidence
+    angle_incidence = calcul_angle_incidence(tab_vec)
+    if angle_incidence is not None and angle_incidence >= 0:
+        print(f"The incidence angle is:\n{angle_incidence:.2f} degrees")
+    else:
+                # Angle d'incidence > 90° ou ne peut pas être calculé
+        print("The ball won't reach the paddle.")
+else:
+    # Balle ne traverse pas le plan de la batte
+    print("The ball won't reach the paddle.")
+
+# Génération des points de la trajectoire pour la visualisation
+points = generate_trajectory_points(a, tab_vec, n)
+
+# Création et affichage du graphique 3D
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot([p[0] for p in points], [p[1] for p in points], [p[2] for p in points], marker='o')
+ax.set_xlabel('X Axis')
+ax.set_ylabel('Y Axis')
+ax.set_zlabel('Z Axis')
+plt.show()

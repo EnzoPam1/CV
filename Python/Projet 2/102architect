@@ -1,0 +1,125 @@
+#!/usr/bin/python3
+
+import sys
+import math
+
+def print_help():
+    print("Usage: ./102architect x0 y0 [transformations]")
+    print("Transformations:")
+    print(" -t dx dy   Translation along vector (dx, dy)")
+    print(" -z sx sy   Scaling by factors sx and sy")
+    print(" -r theta   Rotation by a theta degree angle")
+    print(" -s phi     Reflection over an axis with an inclination angle of phi degrees")
+    print(" -h         Display this help message")
+
+def homogeneous_vector(x, y):
+    vec = [x, y, 1.0]
+    return vec
+
+def translation_matrix(dx, dy):
+    t_matrix = [[1.0, 0, dx], [0, 1.0, dy], [0, 0, 1.0]]
+    return t_matrix
+
+def scaling_matrix(sx, sy):
+    s_matrix = [[sx, 0, 0], [0, sy, 0], [0, 0, 1.0]]
+    return s_matrix
+
+def rotation_matrix(theta):
+    rad = math.radians(theta)
+    r_matrix = [[math.cos(rad), -math.sin(rad), 0], [math.sin(rad), math.cos(rad), 0], [0, 0, 1.0]]
+    return r_matrix
+
+def reflection_matrix(phi):
+    rad = math.radians(phi)
+    ref_matrix = [[math.cos(2*rad), math.sin(2*rad), 0], [math.sin(2*rad), -math.cos(2*rad), 0], [0, 0, 1.0]]
+    return ref_matrix
+
+def multiply_matrices(m1, m2):
+    result = [[sum(a*b for a, b in zip(row, col)) for col in zip(*m2)] for row in m1]
+    return result
+
+def apply_transformation(matrix, point):
+    result = multiply_matrices(matrix, [[point[0]], [point[1]], [1]])
+    return [result[0][0], result[1][0]]
+
+def clean_float(num):
+    if abs(num) < 1e-10:
+        return 0.0
+    else:
+        return num
+
+def format_number(num):
+    num = clean_float(num)
+    return f"{num:.2f}"
+
+def print_matrix(matrix):
+    for row in matrix:
+        formatted_row = [format_number(elem) for elem in row]
+        print(" ".join(formatted_row))
+
+def main():
+    if '-h' in sys.argv:
+        print_help()
+        sys.exit(0)
+
+    if len(sys.argv) < 5:
+        print("Usage: ./102architect x0 y0 [transformations]", file=sys.stderr)
+        sys.exit(84)
+
+    try:
+        x0, y0 = float(sys.argv[1]), float(sys.argv[2])
+    except ValueError:
+        print("Invalid coordinates: x0 and y0 must be numbers", file=sys.stderr)
+        sys.exit(84)
+
+    point = homogeneous_vector(x0, y0)
+    transformations = sys.argv[3:]
+
+    final_matrix = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+
+    i = 0
+    while i < len(transformations):
+        trans_type = transformations[i]
+        matrix = None
+
+        try:
+            if trans_type == '-t':
+                dx, dy = float(transformations[i + 1]), float(transformations[i + 2])
+                print(f"Translation along vector ({int(dx)}, {int(dy)})")
+                matrix = translation_matrix(dx, dy)
+                i += 3
+            elif trans_type == '-z':
+                sx, sy = float(transformations[i + 1]), float(transformations[i + 2])
+                print(f"Scaling by factors {int(sx)} and {int(sy)}")
+                matrix = scaling_matrix(sx, sy)
+                i += 3
+            elif trans_type == '-r':
+                theta = float(transformations[i + 1])
+                print(f"Rotation by a {int(theta)} degree angle")
+                matrix = rotation_matrix(theta)
+                i += 2
+            elif trans_type == '-s':
+                phi = float(transformations[i + 1])
+                print(f"Reflection over an axis with an inclination angle of {int(phi)} degrees")
+                matrix = reflection_matrix(phi)
+                i += 2
+            else:
+                print(f"Unknown transformation: {trans_type}", file=sys.stderr)
+                sys.exit(84)
+
+            if matrix is not None:
+                final_matrix = multiply_matrices(matrix, final_matrix)
+            else:
+                print("Invalid transformation arguments", file=sys.stderr)
+                sys.exit(84)
+
+        except (ValueError, IndexError):
+            print("Invalid arguments for transformation", file=sys.stderr)
+            sys.exit(84)
+
+    transformed_point = apply_transformation(final_matrix, point)
+    print_matrix(final_matrix)
+    print(f"({format_number(x0)}, {format_number(y0)}) => ({format_number(transformed_point[0])}, {format_number(transformed_point[1])})")
+
+if __name__ == "__main__":
+    main()

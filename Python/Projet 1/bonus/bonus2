@@ -1,0 +1,61 @@
+#!/usr/bin/python3
+import pygame
+import sys
+import math
+
+if len(sys.argv) != 8:
+    print("Usage: ./101pong x0 y0 z0 x1 y1 z1 n", file=sys.stderr)
+    sys.exit(84)
+
+
+# Fonction pour initialiser le vecteur vitesse
+def init_vec(A, B):
+    vec = [0] * len(A)
+    for i in range(len(vec)):
+        vec[i] = B[i] - A[i]
+    return vec
+
+
+# Vérification si les arguments peuvent être convertis correctement
+try:
+    a = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])]
+    b = [float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])]
+    n = int(sys.argv[7])
+except ValueError:
+    print("Invalid arguments: Arguments must be numbers and time shift must be an integer.", file=sys.stderr)
+    sys.exit(84)
+
+# Calcul du vecteur vitesse
+tab_vec = init_vec(a, b)
+
+points = []  # init. le tab avec toute les pos.
+pygame.init()
+clock = pygame.time.Clock()  # init. de la clock -> limitera les fps
+speed = [tab_vec[0], tab_vec[1]]  # init. de la vitesse du logo
+size = (width, height) = (800, 400)  # init. taille fntr
+scrn = pygame.display.set_mode(size)  # init. ecran
+pygame.display.set_caption("Bonus 2: visualisation of a DVD logo")  # def. nom de la fntr
+sqr = pygame.image.load("../bonus/dvd.png")  # init. le sprite du logo
+sqr = pygame.transform.scale(sqr, (80, 80))  # le resize
+sqr_rec = sqr.get_rect()  # prends son rectangle -> hitbox en gros
+
+while True:
+    # check si il y a un event -> ferme fntr si q, ESC ou crois de le fntr
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:  # crois de la fntr
+            exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:  # q et ESC
+                exit()
+    sqr_rec = sqr_rec.move(speed)
+    if sqr_rec.left < 0 or sqr_rec.right > width:  # handle les colisions sur x du logo
+        speed[0] = -speed[0]
+    if sqr_rec.top < 0 or sqr_rec.bottom > height:  # handle les colisions sur y du logo
+        speed[1] = -speed[1]
+    points.append(sqr_rec.center)  # ajoute les coordonees du centre du logo au tab
+    scrn.fill((200, 200, 200))  # set le background de la fntr
+    scrn.blit(sqr, sqr_rec)  # superpose le sprite et sa hitbox
+    for i in range(len(points) - 1):  # pour tout les points
+        pygame.draw.line(scrn, (255, 0, 0), points[i], points[i + 1])  # dessiner une lignes entre les crdn. se suivent
+    pygame.display.flip()  # refresh l'affichage
+    clock.tick(60)  # set fps (change le tu vera c'est drole)
