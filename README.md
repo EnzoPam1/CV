@@ -2,7 +2,7 @@
 
 Bienvenue sur mon dépôt GitHub !  
 Vous trouverez ici mes projets réalisés dans le cadre de mes études à **Epitech**, principalement en **C, Python, C++ et Haskell**.  
-👉 Retrouvez également mon [CV](./CV.pdf).  
+👉 Retrouvez également mon [CV](./CV PAMBOUT ENZO 2025.pdf).  
 
 ---
 
