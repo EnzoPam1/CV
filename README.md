@@ -1,38 +1,92 @@
-# Mon Dépôt GitHub
+# 👨‍💻 Enzo Pambout – Portfolio GitHub
 
-Bienvenue sur mon dépôt GitHub ! Ici, vous trouverez tous mes projets réalisés dans le cadre de mes études en C et Python.
+Bienvenue sur mon dépôt GitHub !  
+Vous trouverez ici mes projets réalisés dans le cadre de mes études à **Epitech**, principalement en **C, Python, C++ et Haskell**.  
+👉 Retrouvez également mon [CV](./CV.pdf).  
 
-## Projets C
+---
 
-### [ls](https://github.com/EnzoPam1/CV/tree/main/C/ls)
-Ce projet a pour but de recoder la fonction `ls` de Unix. Il reproduit les principales fonctionnalités de la commande `ls`, y compris la liste des fichiers et répertoires, avec diverses options comme `-l` pour les détails.
+## 🚀 Compétences principales
 
-### [my_hunter](https://github.com/EnzoPam1/CV/tree/main/C/my_hunter)
-Ce projet recrée le jeu classique Duck Hunt en utilisant la bibliothèque CSFML. Le jeu comprend des canards animés, un viseur contrôlé par le joueur, et des mécaniques de tir pour abattre les canards.
+![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![Haskell](https://img.shields.io/badge/Haskell-5D4F85?style=for-the-badge&logo=haskell&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 
-### [my_radar](https://github.com/EnzoPam1/CV/tree/main/C/my_radar)
-Un simulateur de vols d'avions créé avec CSFML. Ce projet simule le mouvement des avions sur un radar, permettant de visualiser leurs trajectoires et d'éviter les collisions.
+- **C** : fonctions systèmes (printf, ls…), algorithmique, jeux graphiques avec CSFML  
+- **Python** : scripts mathématiques, transformations géométriques, visualisations  
+- **C++** : développement orienté objet, Arcade (jeux modulaires), Raytracer (modélisation 3D)  
+- **Haskell** : programmation fonctionnelle (automates cellulaires, convertisseur de documents)  
 
-### [my_navy](https://github.com/EnzoPam1/CV/tree/main/C/my_navy)
-Un jeu de bataille navale jouable entre deux terminaux. Les joueurs placent leurs navires et tentent de couler ceux de leur adversaire en devinant leurs positions.
+---
 
-### [printf](https://github.com/EnzoPam1/CV/tree/main/C/printf)
-Ce projet vise à recréer la fonction `printf` de la bibliothèque standard C. Il supporte les principales spécifications de formatage pour les chaînes de caractères, les entiers, et autres types de données.
+## 📂 Projets C
 
-### [sokoban](https://github.com/EnzoPam1/CV/tree/main/C/sokoban)
-Une réimplémentation du jeu Sokoban. Le joueur doit pousser des caisses sur des cibles prédéfinies dans un labyrinthe, en respectant les contraintes de mouvement du jeu original.
+### [ls](./C/ls)  
+Recode de la commande `ls` de Unix, incluant la liste des fichiers et répertoires avec options principales (`-l`, …).  
 
-## Projets Python
+### [my_hunter](./C/my_hunter)  
+Recréation du jeu **Duck Hunt** avec CSFML. Ajout de mécaniques de tir et gestion des animations des canards.  
 
-### [Projet 1](https://github.com/EnzoPam1/CV/tree/main/Python/Projet%201)
-Ce projet calcule la position d'une balle après `n` secondes et vérifie si la batte de baseball est touchée. Il utilise des équations de mouvement pour déterminer la trajectoire de la balle.
+### [my_radar](./C/my_radar)  
+**Simulateur de radar aérien** : visualisation des trajectoires d’avions avec détection et gestion des collisions.  
 
-### [Projet 2](https://github.com/EnzoPam1/CV/tree/main/Python/Projet%202)
-Ce projet calcule les coordonnées d'un point après plusieurs transformations géométriques comme la translation, le scaling, la rotation centrée à l'origine, et la réflexion sur un axe passant par l'origine. Il permet aussi des combinaisons de ces transformations.
+### [my_navy](./C/my_navy)  
+**Jeu de bataille navale** jouable entre deux terminaux avec communication par signaux Unix.  
 
-## Installation
+### [printf](./C/printf)  
+Recode complet de la fonction `printf`, supportant plusieurs spécifications de formatage (`%d`, `%s`, etc.).  
 
-Pour cloner ce dépôt, utilisez la commande suivante :
+### [sokoban](./C/sokoban)  
+Réimplémentation du jeu **Sokoban** : puzzles de déplacement où il faut pousser des caisses sur des cases cibles.  
 
-```bash
-git clone https://github.com/EnzoPam1/CV.git
+---
+
+## 🐍 Projets Python
+
+### [Projet 1](./Python/Projet%201)  
+Calcul de la trajectoire d’une balle de baseball après `n` secondes et vérification de l’impact avec une batte.  
+Utilisation d’équations de mouvement pour simuler la physique.  
+
+### [Projet 2](./Python/Projet%202)  
+Application de **transformations géométriques** (translation, scaling, rotation, réflexion sur un axe).  
+Permet aussi des combinaisons de transformations pour obtenir de nouvelles coordonnées.  
+
+---
+
+## 🔮 Projets C++ & Haskell
+
+### Arcade (C++)  
+Framework de **jeux modulaires** basé sur des bibliothèques dynamiques.  
+Chaque jeu (Snake, Pac-Man…) peut être chargé dynamiquement et utiliser différents moteurs graphiques.  
+
+### Raytracer (C++)  
+Moteur de rendu **3D** basé sur la technique du ray tracing.  
+Gestion de la lumière, des formes géométriques et des reflets pour créer une image réaliste.  
+
+### Automates cellulaires (Haskell)  
+Simulation de comportements complexes (ex. Jeu de la vie de Conway) avec une approche **fonctionnelle**.  
+
+### mypandoc (Haskell)  
+Convertisseur de documents inspiré de **Pandoc** : traduction d’un fichier Markdown vers d’autres formats.  
+
+---
+
+## 🏢 Expérience professionnelle
+
+**Stage – Ciolli Frères (2024)**  
+- Formation des employés sur un logiciel métier (commandes, devis, facturation, gestion de stock)  
+- Tests en conditions réelles et **modifications directes du logiciel pour intégrer les améliorations**  
+
+---
+
+## 📬 Me contacter
+
+📧 enzo.pamboute@epitech.eu  
+🔗 [LinkedIn](https://fr.linkedin.com/in/enzo-pambout-a18469300)  
+🐙 [GitHub](https://github.com/EnzoPam1)  
+
+---
+
+✨ *Ce dépôt évolue régulièrement avec mes projets. Merci de votre visite !*  
