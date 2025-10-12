@@ -1,0 +1,78 @@
+name: C Projects Build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'C/**'
+      - '.github/workflows/c-projects.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'C/**'
+
+jobs:
+  build-c-projects:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        project: [ls, printf, my_navy, sokoban, my_radar, my_hunter]
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc make libncurses-dev
+
+    - name: Install CSFML for graphical projects
+      if: matrix.project == 'my_hunter' || matrix.project == 'my_radar' || matrix.project == 'sokoban'
+      run: |
+        sudo apt-get install -y libcsfml-dev libsfml-dev
+
+    - name: Build libmy
+      working-directory: C/${{ matrix.project }}
+      run: |
+        if [ -d "lib/my" ]; then
+          cd lib/my
+          make
+          cd ../..
+        fi
+
+    - name: Build ${{ matrix.project }}
+      working-directory: C/${{ matrix.project }}
+      run: make
+
+    - name: Check executable exists
+      working-directory: C/${{ matrix.project }}
+      run: |
+        if [ "${{ matrix.project }}" = "ls" ]; then
+          test -f my_ls
+        elif [ "${{ matrix.project }}" = "printf" ]; then
+          echo "Printf is a library project"
+        elif [ "${{ matrix.project }}" = "my_navy" ]; then
+          test -f my_navy
+        elif [ "${{ matrix.project }}" = "sokoban" ]; then
+          test -f my_sokoban
+        elif [ "${{ matrix.project }}" = "my_radar" ]; then
+          test -f my_radar
+        elif [ "${{ matrix.project }}" = "my_hunter" ]; then
+          test -f my_hunter
+        fi
+
+    - name: Clean build
+      working-directory: C/${{ matrix.project }}
+      run: make fclean
+
+  build-summary:
+    runs-on: ubuntu-latest
+    needs: build-c-projects
+    if: always()
+
+    steps:
+    - name: Summary
+      run: |
+        echo "✅ Build process completed for all C projects"

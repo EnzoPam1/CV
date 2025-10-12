@@ -1,7 +1,12 @@
 # 👨‍💻 Enzo Pambout – Portfolio GitHub
 
-Bienvenue sur mon dépôt GitHub !  
-Vous trouverez ici mes projets réalisés dans le cadre de mes études à **Epitech**, principalement en **C, Python, C++ et Haskell**.  
+![C Projects Build](https://github.com/EnzoPam1/CV/actions/workflows/c-projects.yml/badge.svg)
+![Python Projects Check](https://github.com/EnzoPam1/CV/actions/workflows/python-projects.yml/badge.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/EnzoPam1/CV)
+![GitHub repo size](https://img.shields.io/github/repo-size/EnzoPam1/CV)
+
+Bienvenue sur mon dépôt GitHub !
+Vous trouverez ici mes projets réalisés dans le cadre de mes études à **Epitech**, principalement en **C, Python, C++ et Haskell**.
 👉 Retrouvez également mon [CV](./CV_PAMBOUT_ENZO_2025.pdf).  
 
 ---
@@ -83,7 +88,7 @@ Convertisseur de documents inspiré de **Pandoc** : traduction d’un fichier Ma
 
 ## 📬 Me contacter
 
-📧 enzo.pamboute@epitech.eu  
+📧 enzo.pambout@epitech.eu  
 🔗 [LinkedIn](https://fr.linkedin.com/in/enzo-pambout-a18469300)  
 🐙 [GitHub](https://github.com/EnzoPam1)  
 
