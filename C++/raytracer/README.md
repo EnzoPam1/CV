@@ -1,58 +1,105 @@
-How to add an element to our Raytracer project 
+# Raytracer
 
-If you want to add a figure to our project (we'll take the sphere as an example), you need to : 
-1. Create a sphere class that derives from the Raytracer namespace and accesses the Iprimitives class. 
-2. In your sphere class, add what you need, e.g. x, y, z angles, etc... 
-3. Next, you'll need to calculate coefficients, vectors and so on. 
+Moteur de rendu 3D en C++ utilisant la technique du ray tracing.
+Le programme prend en entree un fichier de scene (`.cfg`) et genere une image au format PPM.
 
-If you want to add a light, you must : 
-1. Go to the .cfg file you want. 
-2. You'll probably notice that there's already a lights section, with x, y, z points inside for ambient and diffuse direction. 
-3. To add a light, it's very simple, just go back to the lights section, which reads as follows: 
+## Compilation
 
-lights =  
-{ 
-ambient = 0.3; 
-diffuse = 0.7; 
+Dependances : `libconfig++`
 
-  directional =  
-  ( 
-    { 
-    x = 1.0; 
-    y = -1.0; 
-    z = -1.0 
-    } 
-  ); 
-}; 
+```bash
+make
+```
 
-Then modify the coordinates. 
+## Utilisation
 
-Create a SceneFile.cfg: 
+```bash
+./raytracer <SCENE_FILE>
+```
 
-To create à scene you need to create every components of the scene with their characteristics, the camera, the primitives the light.. 
- following this pattern :  
- camera = -> name of the component 
- { 
-   resolution = { width = 800; height = 600 }; -> characteristics of the component 
-   position = { x = 0.0; y = 0.0; z = 0.0 }; 
-   fieldOfView = 72.0; 
- }; 
+Exemple :
 
-How add à new element to the parser: 
+```bash
+./raytracer scenes/basic_spheres.cfg > output.ppm
+```
 
-First of all you will need to go in the file SceneParser.hpp and add you new prompt to the class if it's a new components that does not exist. Otherwise if it's à modification to an already existing component you can directly go into the SceneParser.hpp. 
- TO parse the cfg file we use the libconfig++ library. 
- the prompt will be something like that: 
- parseCOMPONENT() { 
-         try { 
-           const libconfig::Setting& ComponentSettings = config->lookup("COMPONENT"); 
-               const libconfig::Setting& characteristic = ComponentSettings["characteristic"]; 
-               int width = resolution["width"]; 
-               int height = resolution["height"]; 
-         }catch(const libconfig::SettingNotFoundException& ex) { 
-             std::cerr << "Camera setting not found: " << ex.getPath() << std::endl; 
-             // Use a default component (you to create the default parameters) 
-             scene.setCOMPONENT(COMPONENT()); 
-         } 
- } 
- If you need to parse more complexe thing you can refer to the libconfig++ manual. 
+## Fonctionnalites
+
+### Primitives
+- Sphere
+- Plan
+- Cylindre
+- Cone
+
+### Transformations
+- Translation
+- Rotation (X, Y, Z)
+- Scale
+
+### Lumieres
+- Lumiere ambiante
+- Lumiere directionnelle
+- Ombres portees
+
+### Materiaux
+- Couleur diffuse (flat color)
+
+### Configuration de scene
+- Camera configurable (position, rotation, FOV, resolution)
+- Ajout de primitives avec position, couleur et transformations
+- Configuration des lumieres (ambiante + directionnelle)
+
+## Format de scene
+
+Les scenes utilisent le format `libconfig++` :
+
+```
+camera:
+{
+    resolution = { width = 800; height = 600; };
+    position = { x = 0; y = -100; z = 20; };
+    fieldOfView = 72.0;
+};
+
+primitives:
+{
+    spheres = (
+        { x = 60; y = 5; z = 40; r = 25;
+          color = { r = 255; g = 64; b = 64; }; }
+    );
+    planes = (
+        { axis = "Z"; position = -20;
+          color = { r = 64; g = 64; b = 255; }; }
+    );
+};
+
+lights:
+{
+    ambient = 0.4;
+    diffuse = 0.6;
+    directional = (
+        { x = 1.0; y = -1.0; z = -1.0; }
+    );
+};
+```
+
+## Architecture
+
+Le projet suit une architecture modulaire avec interfaces (`IPrimitive`, `ILight`) et utilise le pattern Factory pour la creation des primitives.
+
+```
+src/
+├── main.cpp
+├── Math/           # Point3D, Vector3D
+└── RayTracer/
+    ├── Camera, Ray, Scene, SceneParser
+    ├── Interfaces/  # IPrimitive, ILight
+    ├── Primitives/  # Sphere, Plane, Cylinder, Cone
+    ├── Lights/      # AmbientLight, DirectionalLight
+    ├── Factories/   # PrimitiveFactory
+    └── Utils/       # Color
+```
+
+## Exemples de rendus
+
+Les scenes de demonstration et leurs rendus sont dans `scenes/` et `screenshots/`.
