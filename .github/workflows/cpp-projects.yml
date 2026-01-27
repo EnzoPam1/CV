@@ -1,0 +1,75 @@
+name: C++ Projects Build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'C++/**'
+      - '.github/workflows/cpp-projects.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'C++/**'
+
+jobs:
+  build-raytracer:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ make libconfig++-dev
+
+    - name: Build raytracer
+      working-directory: C++/raytracer
+      run: make
+
+    - name: Check executable exists
+      working-directory: C++/raytracer
+      run: test -f raytracer
+
+    - name: Clean build
+      working-directory: C++/raytracer
+      run: make fclean
+
+  build-arcade:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ make libncurses-dev libsfml-dev libsdl2-dev libsdl2-ttf-dev
+
+    - name: Build arcade
+      working-directory: C++/arcade
+      run: make
+
+    - name: Check executable and libraries exist
+      working-directory: C++/arcade
+      run: |
+        test -f arcade
+        test -f lib/arcade_ncurses.so
+        test -f lib/arcade_sfml.so
+        test -f lib/arcade_sdl2.so
+        test -f lib/arcade_snake.so
+        test -f lib/arcade_nibbler.so
+
+    - name: Clean build
+      working-directory: C++/arcade
+      run: make fclean
+
+  build-summary:
+    runs-on: ubuntu-latest
+    needs: [build-raytracer, build-arcade]
+    if: always()
+
+    steps:
+    - name: Summary
+      run: |
+        echo "Build process completed for all C++ projects"

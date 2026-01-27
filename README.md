@@ -1,6 +1,7 @@
 # 👨‍💻 Enzo Pambout – Portfolio GitHub
 
 ![C Projects Build](https://github.com/EnzoPam1/CV/actions/workflows/c-projects.yml/badge.svg)
+![C++ Projects Build](https://github.com/EnzoPam1/CV/actions/workflows/cpp-projects.yml/badge.svg)
 ![Python Projects Check](https://github.com/EnzoPam1/CV/actions/workflows/python-projects.yml/badge.svg)
 ![GitHub last commit](https://img.shields.io/github/last-commit/EnzoPam1/CV)
 ![GitHub repo size](https://img.shields.io/github/repo-size/EnzoPam1/CV)
@@ -60,21 +61,25 @@ Permet aussi des combinaisons de transformations pour obtenir de nouvelles coord
 
 ---
 
-## 🔮 Projets C++ & Haskell
+## 🔮 Projets C++
 
-### Arcade (C++)  
-Framework de **jeux modulaires** basé sur des bibliothèques dynamiques.  
-Chaque jeu (Snake, Pac-Man…) peut être chargé dynamiquement et utiliser différents moteurs graphiques.  
+### [Raytracer](./C++/raytracer)
+Moteur de rendu **3D** basé sur la technique du ray tracing.
+Génération d'images réalistes avec gestion des primitives (sphères, plans, cylindres, cônes), lumières (ambiante, directionnelle) et ombres portées.
 
-### Raytracer (C++)  
-Moteur de rendu **3D** basé sur la technique du ray tracing.  
-Gestion de la lumière, des formes géométriques et des reflets pour créer une image réaliste.  
+### [Arcade](./C++/arcade)
+Plateforme de **jeux rétro** modulaire basée sur des bibliothèques dynamiques (`.so`).
+Chargement à l'exécution de jeux (Snake, Nibbler) et moteurs graphiques (SFML, SDL2, ncurses) via `dlopen`/`dlsym`.
 
-### Automates cellulaires (Haskell)  
-Simulation de comportements complexes (ex. Jeu de la vie de Conway) avec une approche **fonctionnelle**.  
+---
 
-### mypandoc (Haskell)  
-Convertisseur de documents inspiré de **Pandoc** : traduction d’un fichier Markdown vers d’autres formats.  
+## 🔮 Projets Haskell
+
+### Automates cellulaires *(à venir)*
+Simulation de comportements complexes (ex. Jeu de la vie de Conway) avec une approche **fonctionnelle**.
+
+### mypandoc *(à venir)*
+Convertisseur de documents inspiré de **Pandoc** : traduction d'un fichier Markdown vers d'autres formats.  
 
 ---
 

@@ -39,6 +39,15 @@ C/my_radar/my_radar
 C/my_navy/my_navy
 C/sokoban/my_sokoban
 
+# C++ Project Executables
+C++/raytracer/raytracer
+C++/arcade/arcade
+C++/arcade/lib/*.so
+
+# Project subject PDFs
+B-OOP-400_*.pdf
+B-OOP-*.pdf
+
 # Libraries
 C/*/lib/my/libmy.a
 *.a
