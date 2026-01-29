@@ -5,6 +5,7 @@
 ** DirectionalLight
 */
 
+#include <limits>
 #include "DirectionalLight.hpp"
 #include "../Interfaces/IPrimitive.hpp"
 
