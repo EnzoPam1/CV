@@ -3,13 +3,8 @@ name: C++ Projects Build
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'C[+][+]/**'
-      - '.github/workflows/cpp-projects.yml'
   pull_request:
     branches: [ main ]
-    paths:
-      - 'C[+][+]/**'
 
 jobs:
   build-raytracer:
