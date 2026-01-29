@@ -4,12 +4,12 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'C++/**'
+      - 'C[+][+]/**'
       - '.github/workflows/cpp-projects.yml'
   pull_request:
     branches: [ main ]
     paths:
-      - 'C++/**'
+      - 'C[+][+]/**'
 
 jobs:
   build-raytracer:
